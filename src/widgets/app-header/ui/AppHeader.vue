@@ -1,12 +1,11 @@
 ﻿<script setup lang="ts">
-import AppLogo from './AppLogo.vue'
 import AppNavigation from './AppNavigation.vue'
 </script>
 
 <template>
   <header class="app-header">
-    <div class="app-header__inner">
-      <AppLogo />
+    <div class="header-container">
+      <router-link to="/" class="logo">Vue Lottery</router-link>
       <AppNavigation />
     </div>
   </header>
@@ -14,18 +13,24 @@ import AppNavigation from './AppNavigation.vue'
 
 <style scoped lang="scss">
 .app-header {
-  background-color: var(--p-content-background);
-  border-bottom: 1px solid var(--p-content-border-color);
+  background: #18181b;
+  border-bottom: 1px solid #27272a;
+  padding: 16px 0;
 
-  &__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
+  .header-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 14px 24px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
   }
 }
 </style>

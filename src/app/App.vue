@@ -3,26 +3,22 @@ import { AppHeader } from '@/widgets/app-header'
 </script>
 
 <template>
-  <div class="app-layout">
+  <div id="app-root">
     <AppHeader />
-    <main class="app-main">
-      <RouterView />
+    <main class="main-content">
+      <router-view />
     </main>
   </div>
 </template>
 
-<style scoped lang="scss">
-.app-layout {
-  display: flex;
-  flex-direction: column;
+<style lang="scss">
+#app-root {
   min-height: 100vh;
+  background-color: #09090b;
+  color: #f4f4f5;
+  font-family: system-ui, -apple-system, sans-serif;
 }
-
-.app-main {
-  flex: 1;
-  padding: 24px 16px;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
+.main-content {
+  padding: 20px;
 }
 </style>
