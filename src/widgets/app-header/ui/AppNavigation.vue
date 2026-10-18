@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 import { useSessionStore } from '@/entities/session'
+import { LogoutButton } from '@/features/auth'
 
 const sessionStore = useSessionStore()
 </script>
@@ -13,9 +14,7 @@ const sessionStore = useSessionStore()
     <router-link v-if="!sessionStore.isAuthenticated" to="/login" class="login-link">
       Увійти
     </router-link>
-    <button v-else @click="sessionStore.clearSession()" class="logout-btn">
-      Вийти
-    </button>
+    <LogoutButton v-else />
   </nav>
 </template>
 
@@ -40,15 +39,6 @@ const sessionStore = useSessionStore()
     padding: 6px 14px;
     border: 1px solid #10b981;
     border-radius: 6px;
-  }
-
-  .logout-btn {
-    background: transparent;
-    border: 1px solid #ef4444;
-    color: #ef4444;
-    padding: 6px 14px;
-    border-radius: 6px;
-    cursor: pointer;
   }
 }
 </style>
