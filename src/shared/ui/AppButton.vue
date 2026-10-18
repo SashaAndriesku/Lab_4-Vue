@@ -1,18 +1,33 @@
 ﻿<script setup lang="ts">
-defineProps<{ label?: string; icon?: string; href?: string }>()
+import Button from 'primevue/button'
+
+defineProps<{
+  label?: string
+  icon?: string
+  loading?: boolean
+  severity?: 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger'
+  href?: string
+}>()
+
+defineEmits<{
+  (e: 'click', event: MouseEvent): void
+}>()
 </script>
+
 <template>
-  <a v-if="href" :href="href" target="_blank" class="app-button">
-    <i v-if="icon" :class="icon"></i><span>{{ label }}</span>
+  <a v-if="href" :href="href" target="_blank" class="p-button-wrapper">
+    <Button :label="label" :icon="icon" :severity="severity" />
   </a>
-  <button v-else class="app-button">
-    <i v-if="icon" :class="icon"></i><span>{{ label }}</span>
-  </button>
+  <Button
+    v-else
+    :label="label"
+    :icon="icon"
+    :loading="loading"
+    :severity="severity"
+    @click="$emit('click', $event)"
+  />
 </template>
-<style scoped lang="scss">
-.app-button {
-  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
-  background-color: var(--p-primary-color, #10b981); color: #fff;
-  border-radius: 6px; text-decoration: none; border: none; cursor: pointer;
-}
+
+<style scoped>
+.p-button-wrapper { text-decoration: none; }
 </style>
