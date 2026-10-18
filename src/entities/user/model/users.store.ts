@@ -1,0 +1,52 @@
+﻿import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+import { ServiceProvider } from '@/shared/api'
+import type { UserService } from '../api/user.service'
+import type { User, CreateUserDto } from './types'
+
+export const useUsersStore = defineStore('users', () => {
+  const users = ref<User[]>([])
+  const total = ref(0)
+  const isLoading = ref(false)
+  const error = ref<string | null>(null)
+
+  const hasUsers = computed(() => users.value.length > 0)
+  const service = () => ServiceProvider.get<UserService>('users')
+
+  async function fetchUsers(limit = 10, skip = 0) {
+    isLoading.value = true
+    error.value = null
+    try {
+      const data = await service().getAll({ limit, skip })
+      users.value = data.users
+      total.value = data.total
+    } catch (e) {
+      error.value = (e as Error).message
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  async function createUser(dto: CreateUserDto) {
+    isLoading.value = true
+    try {
+      const newUser = await service().create(dto)
+      users.value.unshift(newUser)
+      total.value++
+      return newUser
+    } catch (e) {
+      error.value = (e as Error).message
+      throw e
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  async function removeUser(id: number) {
+    await service().delete(id)
+    users.value = users.value.filter((u) => u.id !== id)
+    total.value--
+  }
+
+  return { users, total, isLoading, error, hasUsers, fetchUsers, createUser, removeUser }
+})
