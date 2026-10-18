@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:fsd": "steiger src"
   },
   "dependencies": {
     "@primevue/themes": "^4.5.4",
@@ -26,6 +27,7 @@
     "@vue/tsconfig": "^0.9.1",
     "gh-pages": "^6.3.0",
     "sass": "^1.105.2",
+    "steiger": "^0.7.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0",
     "vue-tsc": "^3.3.11"
