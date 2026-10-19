@@ -23,7 +23,7 @@ const { value: password, errorMessage: passwordError } = useField<string>('passw
 const onSubmit = handleSubmit(async (values) => {
   errorMessage.value = ''
   try {
-    await authStore.login(values)
+    await authStore.login({ username: username.value, password: password.value })
     const redirectPath = (route.query.redirect as string) || '/users'
     router.push(redirectPath)
   } catch (err) {
